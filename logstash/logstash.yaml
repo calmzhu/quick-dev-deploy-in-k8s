@@ -8,22 +8,14 @@ spec:
           image: docker.elastic.co/logstash/logstash:7.2.0
           volumeMounts:
             - name: pipeline
-              mountPath: /usr/share/logstash/pipeline-
-    initContainers:
-        - name: cp
-          image: busybox
-          command: 
-            - '/bin/sh'
-            - '-c'
-            - 'cp /config/*  /pipeline'
-          volumeMounts:
-            - name: pipeline
-              mountPath: /pipeline
-            - name: config-logstash
-              mountPath: /config
+              mountPath: /usr/share/logstash/pipeline
+            - name: ca-cert
+              mountPath: /usr/share/logstash/ca-certs
     volumes:
-        - name: config-logstash
-          configMap:
-            name: logstash-config
         - name: pipeline
+          configMap:
+            name: pipeline
+        - name: ca-cert
+          configMap:
+            name: ca-cert
     dnsPolicy: Default

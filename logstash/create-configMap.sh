@@ -1,1 +1,2 @@
-kubectl create configmap logstash-config --from-file=ca.pem --from-file=logstash.conf
+kubectl create configmap ca-cert --from-file=ca.pem 
+kubectl create configmap pipeline --from-file=logstash.conf
