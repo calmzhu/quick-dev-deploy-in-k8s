@@ -4,17 +4,17 @@ metadata:
     name: logstash
 spec:
     containers:
-        - name: logstash
+        - name: logstash-kafka-gitlab
           image: docker.elastic.co/logstash/logstash:7.2.0
           volumeMounts:
-            - name: pipeline
+            - name: pipeline-gitlab
               mountPath: /usr/share/logstash/pipeline
             - name: ca-cert
               mountPath: /usr/share/logstash/ca-certs
     volumes:
-        - name: pipeline
+        - name: pipeline-gitlab
           configMap:
-            name: pipeline
+            name: pipeline-gitlab
         - name: ca-cert
           configMap:
             name: ca-cert
