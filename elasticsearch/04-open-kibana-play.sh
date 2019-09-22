@@ -1,4 +1,4 @@
-PASSWORD=$(kubectl get secrets elasticsearch-elastic-user  -o=jsonpath='{.data.elastic}' | base64 --decode)
+PASSWORD=$(kubectl get secrets es2-elastic-user  -o=jsonpath='{.data.elastic}' | base64 --decode)
 echo $PASSWORD
 ##elastic/qbkbqf49qvx2cgb9v42ps5mw
 kubectl port-forward service/kibana-kibana 5601 --address=0.0.0.0

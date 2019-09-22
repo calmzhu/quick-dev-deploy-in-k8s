@@ -7,4 +7,4 @@ spec:
   version: 7.2.0
   nodeCount: 1
   elasticsearchRef:
-    name: elasticsearch
+    name: es2
