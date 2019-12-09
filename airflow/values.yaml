@@ -1,0 +1,185 @@
+airflow:
+  extraConfigmapMounts: []
+  extraEnv:
+  fernetKey: ""
+  service:
+    annotations: {}
+    sessionAffinity: "None"
+    sessionAffinityConfig: {}
+    type: ClusterIP
+    externalPort: 8080
+    nodePort:
+      http:
+  executor: Celery
+  initRetryLoop:
+  image:
+    repository: dockerhub.azk8s.cn/puckel/docker-airflow
+    tag: 1.10.4
+    pullPolicy: IfNotPresent
+    pullSecret:
+  schedulerNumRuns: "-1"
+  schedulerDoPickle: true
+  webReplicas: 1
+  config: {}
+  podDisruptionBudgetEnabled: true
+  podDisruptionBudget:
+    maxUnavailable: 1
+  connections: []
+  variables: {}
+  pools: {}
+  podAnnotations: {}
+  extraInitContainers: []
+  extraContainers: []
+  extraVolumeMounts: []
+  extraVolumes: []
+  initdb: true
+  auth:
+    forcePassword: true
+    username: calmzhu
+    password: Q1w2e3r4
+scheduler:
+  resources: {}
+  labels: {}
+  annotations: {}
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
+flower:
+  urlPrefix: ""
+  resources: {}
+  labels: {}
+  annotations: {}
+  service:
+    annotations: {}
+    type: ClusterIP
+    externalPort: 5555
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
+web:
+  baseUrl: "http://localhost:8080"
+  resources: {}
+  labels: {}
+  annotations: {}
+  initialStartupDelay: "60"
+  initialDelaySeconds: "360"
+  minReadySeconds: 120
+  readinessProbe:
+    periodSeconds: 60
+    timeoutSeconds: 1
+    successThreshold: 1
+    failureThreshold: 5
+  livenessProbe:
+    periodSeconds: 60
+    timeoutSeconds: 1
+    successThreshold: 1
+    failureThreshold: 5
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
+  secretsDir: /var/airflow/secrets
+  secrets: []
+workers:
+  enabled: true
+  replicas: 1
+  terminationPeriod: 30
+  resources: {}
+  labels: {}
+  annotations: {}
+  podAnnotations: {}
+  celery:
+    instances: 1
+    gracefullTermination: false
+  secretsDir: /var/airflow/secrets
+  secrets: []
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
+ingress:
+  enabled: true
+  web:
+    path: ""
+    host: "airflow.justcalm.ink"
+    annotations: {}
+    livenessPath:
+    tls:
+      enabled: false
+    precedingPaths:
+    succeedingPaths:
+  flower:
+    path: ""
+    livenessPath: /
+    host: "flower.justcalm.ink"
+    annotations: {}
+    tls:
+      enabled: false
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  #storageClass: glusterfile
+  size: 1Gi
+logsPersistence:
+  enabled: false
+  accessMode: ReadWriteOnce
+  size: 1Gi
+dags:
+  path: /usr/local/airflow/dags
+  doNotPickle: false
+  git:
+    url: http://reader:opsas-reader@gitlab.justcalm.ink/opsas/dags
+    ref: master
+    gitSync:
+      enabled: true
+      image:
+        repository: dockerhub.azk8s.cn/alpine/git
+        tag: 1.0.7
+        pullPolicy: IfNotPresent
+      refreshTime: 10
+  initContainer:
+    enabled: true
+    image:
+      repository: dockerhub.azk8s.cn/alpine/git
+      tag: 1.0.7
+      pullPolicy: IfNotPresent
+    installRequirements: true
+logs:
+  path: /usr/local/airflow/logs
+rbac:
+  create: true
+serviceAccount:
+  create: true
+  name:
+postgresql:
+  enabled: true
+  existingSecret:
+  existingSecretKey: postgres-password
+  service:
+    port: 5432
+  postgresUser: postgres
+  postgresPassword: airflow
+  postgresDatabase: airflow
+  persistence:
+    enabled: true
+    accessMode: ReadWriteOnce
+redis:
+  enabled: true
+  existingSecret:
+  existingSecretKey: redis-password
+  password: airflow
+  master:
+    persistence:
+      enabled: false
+      accessMode: ReadWriteOnce
+  cluster:
+    enabled: false
+serviceMonitor:
+  enabled: false
+  interval: "30s"
+  path: /admin/metrics
+  selector:
+    prometheus: kube-prometheus
+prometheusRule:
+  enabled: false
+  groups: {}
+  additionalLabels: {}
+extraManifests: []
