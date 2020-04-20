@@ -4,6 +4,7 @@ ARG newman_version
 
 ENV NODE_VERSION 8
 
+RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
 RuN apt-get update
 RuN apt-get install -y gnupg2 openjdk-8-jdk openssh-server
 ADD https://deb.nodesource.com/setup_$NODE_VERSION.x /opt/install_node.sh
