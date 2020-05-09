@@ -4,10 +4,10 @@ metadata:
     name: kibana-ingress
 spec:
     rules:
-        - host: kibana.justcalm.ink
+        - host: kibana.kube.justcalm.ink
           http:
               paths:
                   - path: /
                     backend:
-                        serviceName: kibana-kibana
+                        serviceName: justcalm-kb-http
                         servicePort: 5601

@@ -1,12 +1,27 @@
-apiVersion: elasticsearch.k8s.elastic.co/v1alpha1
+apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
-  name: es2
+  name: justcalm
 spec:
-  version: 7.2.0
-  nodes:
-  - nodeCount: 1
-    config:
-      node.master: true
-      node.data: true
-      node.ingest: true
+  version: 7.6.2
+  nodeSets:
+    - name: default
+      count: 1
+      podTemplate:
+        spec:
+          containers:
+            - name: elasticsearch
+              resources:
+                requests:
+                  memory: 2G
+                limits:
+                  memory: 3G
+          initContainers:
+            - name: init-myservice
+              image: busybox:1.28
+              securityContext:
+                privileged: true
+              command: 
+                - "sysctl"
+                - "-w"
+                - "vm.max_map_count=262144"

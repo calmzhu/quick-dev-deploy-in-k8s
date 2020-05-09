@@ -1,7 +1,7 @@
-PASSWORD=$(kubectl get secrets es2-elastic-user  -o=jsonpath='{.data.elastic}' | base64 --decode)
+PASSWORD=$(kubectl get secrets justcalm-es-elastic-user  -o=jsonpath='{.data.elastic}' | base64 --decode)
 echo $PASSWORD
 ##elastic/qbkbqf49qvx2cgb9v42ps5mw
-kubectl port-forward service/kibana-kibana 5601 --address=0.0.0.0
+kubectl port-forward service/justcalm-kb-http 5601 --address=0.0.0.0
 
 ### https://www.elastic.co/cn/elasticsearch-kubernetes
 ## Open browser @ http://localhost:5601 and login with user elastic and the password that you copied from the terminal.
