@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+    name: kibana-ingress
+spec:
+    rules:
+        - host: airflow.kube.justcalm.ink
+          http:
+              paths:
+                  - path: /
+                    backend:
+                        serviceName: airflow-web
+                        servicePort: 8080
+        - host: flower.kube.justcalm.ink
+          http:
+              paths:
+                  - path: /
+                    backend:
+                        serviceName: airflow-flower
+                        servicePort: 5555

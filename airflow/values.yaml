@@ -99,7 +99,7 @@ ingress:
   enabled: true
   web:
     path: ""
-    host: "airflow.justcalm.ink"
+    host: "airflow.kube.justcalm.ink"
     annotations: {}
     livenessPath:
     tls:
@@ -109,7 +109,7 @@ ingress:
   flower:
     path: ""
     livenessPath: /
-    host: "flower.justcalm.ink"
+    host: "flower.kube.justcalm.ink"
     annotations: {}
     tls:
       enabled: false
