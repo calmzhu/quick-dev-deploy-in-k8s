@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kafka-data-0
+  labels:
+    type: local
+    function: kafka
+    unit: data-0
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/pvs/kafka-data-0"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kafka-data-1
+  labels:
+    type: local
+    function: kafka
+    unit: data-1
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/pvs/kafka-data-1"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: kafka-data-2
+  labels:
+    type: local
+    function: kafka
+    unit: data-2
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/pvs/kafka-data-2"
