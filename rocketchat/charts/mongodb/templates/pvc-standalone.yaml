@@ -22,5 +22,9 @@ spec:
 {{- else }}
   storageClassName: "{{ .Values.persistence.storageClass }}"
 {{- end }}
+  selector:
+      matchLabels:
+          function: rocketchat
+          unit: mongo
 {{- end }}
 {{- end }}

@@ -1,9 +1,11 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mongodb-rocketchat
+  name: rocketchat-mongo
   labels:
     type: local
+    function: rocketchat
+    unit: mongo
 spec:
   storageClassName: standard
   capacity:
@@ -11,14 +13,16 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/data-rocketchat-v2"
+    path: "/data/pvs/rocketchat-mongo"
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: rocketchat
+  name: rocketchat-data
   labels:
     type: local
+    function: rocketchat
+    unit: data
 spec:
   storageClassName: standard
   capacity:
@@ -26,4 +30,4 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/mnt/data-rocketchat-v1"
+    path: "/data/pvs/rocketchat-data"

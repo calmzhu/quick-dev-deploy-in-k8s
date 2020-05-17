@@ -9,6 +9,10 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
+  selector:
+    matchLabels:
+      function: rocketchat
+      unit: data
   accessModes:
     - {{ .Values.persistence.accessMode | quote }}
   resources:
