@@ -16,6 +16,15 @@ spec:
           env:
             - name: MONITORING_ENABLED
               value: "false"
+            - name: KAFKA_ADDR
+              value: "kafka:9092"
+            - name: ELASTIC_USER
+              value: "elastic"
+            - name: ELASTIC_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: justcalm-es-elastic-user
+                  key: elastic
     volumes:
         - name: pipeline-config-es
           configMap:
