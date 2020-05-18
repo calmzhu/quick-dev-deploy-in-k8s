@@ -1,0 +1,6 @@
+configMapGenerator:
+  - name: logstash-config-es
+    files:
+      - logstash-kafka-es.conf
+resources:
+    - logstash-pod.yaml

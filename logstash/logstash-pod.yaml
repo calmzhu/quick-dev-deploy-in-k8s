@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+    name: logstash-kafka-es
+spec:
+    containers:
+        - name: logstash-kafka-es
+          image: docker.elastic.co/logstash/logstash:7.7.0
+          volumeMounts:
+            - name: pipeline-config-es
+              mountPath: /usr/share/logstash/pipeline
+              readOnly: true
+            - name: ca-cert
+              mountPath: /usr/share/logstash/ca-certs
+              readOnly: true
+          env:
+            - name: MONITORING_ENABLED
+              value: "false"
+    volumes:
+        - name: pipeline-config-es
+          configMap:
+            name: logstash-config-es
+        - name: ca-cert
+          secret:
+            secretName: justcalm-es-http-certs-internal
+            items:
+              - key: ca.crt
+                path: ca.pem
+    dnsPolicy: ClusterFirst
