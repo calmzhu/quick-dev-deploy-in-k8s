@@ -1,0 +1,9 @@
+filebeat.inputs:
+    - type: log
+      enabled: true
+      paths:
+          - /var/log/client/*.log
+output.kafka:
+    enabled: true
+    hosts: ["k8s.justcalm.ink:31090","k8s.justcalm.ink:31091","k8s.justcalm.ink:31092"]
+    topic: "log"
